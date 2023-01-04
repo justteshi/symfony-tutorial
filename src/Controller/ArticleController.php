@@ -49,6 +49,7 @@ EOF;
         }
 
         $articleText = $item->get();
+        dump($parser);die;
 
         $comments = [
             'Loren text etexteasd nawnjqwd',
