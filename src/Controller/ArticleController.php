@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,8 +22,26 @@ class ArticleController extends AbstractController
     /**
      * @Route("/news/{slug}", name="article_show")
      */
-    public function show($slug)
+    public function show($slug, MarkdownInterface $parser)
     {
+        $articleText = <<<EOF
+Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
+Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
+when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+ 
+It has survived not only five centuries, but also the leap into electronic typesetting,
+remaining essentially unchanged.
+It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+EOF;
+        $articleText = $parser->transform($articleText);
+
         $comments = [
             'Loren text etexteasd nawnjqwd',
             'LOrem Ipsum atext awd nqwajksjh he',
@@ -31,6 +50,7 @@ class ArticleController extends AbstractController
         return $this->render('article/show.html.twig',[
             'text' => ucwords(str_replace('-',' ', $slug)),
             'comments' => $comments,
+            'articleText' => $articleText,
             'slug' => $slug
         ]);
     }
