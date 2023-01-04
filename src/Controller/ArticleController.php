@@ -42,6 +42,7 @@ class ArticleController extends AbstractController
     public function toggleArticleHeart($slug, LoggerInterface $logger)
     {
         //TODO - like/unlike the article
+
         $logger->info('Article is being liked');
         return new JsonResponse(['hearts' => rand(5, 100)]);
     }
