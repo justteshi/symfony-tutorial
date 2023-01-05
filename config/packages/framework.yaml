@@ -17,4 +17,4 @@ framework:
         log: true
 
     cache:
-        app: cache.adapter.apcu
+        app: '%cache_adapter%'
