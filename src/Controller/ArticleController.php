@@ -56,6 +56,7 @@ EOF;
             'LOrem Ipsum atext awd nqwajksjh he',
             'Ipsume text teshahhj ejkq asfjr fksmsj'
         ];
+
         return $this->render('article/show.html.twig',[
             'text' => ucwords(str_replace('-',' ', $slug)),
             'comments' => $comments,
