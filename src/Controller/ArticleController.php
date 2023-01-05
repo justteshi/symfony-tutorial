@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\MarkdownHelper;
 use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/news/{slug}", name="article_show")
      */
-    public function show($slug, MarkdownInterface $parser, AdapterInterface $cache)
+    public function show($slug, MarkdownHelper $markdownHelper)
     {
         $articleText = <<<EOF
 Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
@@ -42,14 +43,7 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 EOF;
 
-//        dump($cache);die;
-        $item = $cache->getItem('markdown_'.md5($articleText));
-        if (!$item->isHit()) {
-            $item->set($parser->transform($articleText));
-            $cache->save($item);
-        }
-
-        $articleText = $item->get();
+        $articleText = $markdownHelper->parse($articleText);
 
         $comments = [
             'Loren text etexteasd nawnjqwd',
