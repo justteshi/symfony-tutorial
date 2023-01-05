@@ -12,32 +12,41 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ArticleStatsCommand extends Command
 {
     protected static $defaultName = 'article:stats';
-    protected static $defaultDescription = 'Add a short description for your command';
+    protected static $defaultDescription = 'Return some article stats';
 
     protected function configure(): void
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addArgument('slug', InputArgument::REQUIRED, 'The article\'s slug')
+            ->addOption('format', null, InputOption::VALUE_REQUIRED, 'THe output format description')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $slug = $input->getArgument('slug');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        $data = [
+            'slug' => $slug,
+            'hearts' => rand(10,100)
+        ];
+
+        switch ($input->getOption('format')) {
+            case 'text':
+                $rows =[];
+                foreach ($data as $key => $value){
+                    $rows[] = [$key, $value];
+                }
+                $io->table(['Key', 'Value'],$rows);
+                break;
+            case 'json':
+                $io->writeln(json_encode($data));
+                break;
+            default:
+                throw new \Exception('WHat format is that ?!');
         }
-
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
-
         return 0;
     }
 }
