@@ -42,6 +42,7 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 EOF;
 
+//        dump($cache);die;
         $item = $cache->getItem('markdown_'.md5($articleText));
         if (!$item->isHit()) {
             $item->set($parser->transform($articleText));
@@ -49,7 +50,6 @@ EOF;
         }
 
         $articleText = $item->get();
-        dump($parser);die;
 
         $comments = [
             'Loren text etexteasd nawnjqwd',
