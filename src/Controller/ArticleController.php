@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Service\MarkdownHelper;
-use Nexy\Slack\Client;
+use App\Service\SlackClient;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,16 +30,15 @@ class ArticleController extends AbstractController
     /**
      * @Route("/news/{slug}", name="article_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper, Client $slack)
+    public function show($slug, MarkdownHelper $markdownHelper, SlackClient $slack)
     {
-        if($slug == 'testslack') {
-            $message = $slack->createMessage()
-                ->from('Tiger')
-                ->withIcon(':ghost')
-                ->setText('THis is generated message. A new one :)');
-
-            $slack->sendMessage($message);
+        if($slug == 'slack') {
+            $slack->sendMessage(
+                'New Beautiful Tiger',
+                'Pretty new message from tigerland'
+            );
         }
+
 
         $articleText = <<<EOF
 Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
