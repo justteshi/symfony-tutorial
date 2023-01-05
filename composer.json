@@ -7,7 +7,7 @@
         "ext-iconv": "*",
         "knplabs/knp-markdown-bundle": "^1.10",
         "nexylan/slack-bundle": "^2.3",
-        "php-http/guzzle6-adapter": "^2.0",
+        "php-http/guzzle7-adapter": "^1.0",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",

@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Service\MarkdownHelper;
-use Michelf\MarkdownInterface;
+use Nexy\Slack\Client;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -32,8 +30,17 @@ class ArticleController extends AbstractController
     /**
      * @Route("/news/{slug}", name="article_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper)
+    public function show($slug, MarkdownHelper $markdownHelper, Client $slack)
     {
+        if($slug == 'testslack') {
+            $message = $slack->createMessage()
+                ->from('Tiger')
+                ->withIcon(':ghost')
+                ->setText('THis is generated message. A new one :)');
+
+            $slack->sendMessage($message);
+        }
+
         $articleText = <<<EOF
 Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
 Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
