@@ -15,47 +15,9 @@ class ArticleAdminController extends AbstractController
     /**
      * @Route ("/admin/article/new")
      */
-    public function new(EntityManagerInterface $em)
+    public function new(Article $article)
     {
-        $authors = [
-            'Mike Mikey',
-            'Tom Tomson',
-        ];
-        $images = [
-            'asteroid.jpeg',
-            'lightspeed.png',
-            'mercury.jpeg',
-            'meteor-shower.jpg',
-            'space-nav.jpg'
-        ];
-        $randNum = rand(100,999);
-        $date = new \DateTime('now');
-        $article = new Article();
-        $article->setTitle(sprintf("Why Asteroids Taste Bacon %s", $randNum))
-            ->setSlug( sprintf("why-asteroids-taste-bacon-%s", $randNum))
-            ->setAuthor($authors[rand(0,1)])
-            ->setImageFilename($images[rand(0,4)])
-            ->setContent(<<<EOF
-Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
-Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
-when an unknown **printer** **took** a galley of type and scrambled it to make a type specimen book.
- 
-It has survived not only five centuries, but also the leap into electronic typesetting,
-remaining essentially unchanged.
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-EOF
-        )
-            ->setPublishedAt($date);
-        $em->persist($article);
-        $em->flush();
-//        return new Response('Created New Article');
         return $this->redirect(sprintf('/news/%s',$article->getSlug()));
     }
 
