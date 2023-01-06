@@ -10,10 +10,6 @@ class ArticleFixtures extends BaseFixtures
     protected function loadData(ObjectManager $manager): void
     {
         $this->createMany(Article::class, 10, function (Article $article, $count) {
-            $authors = [
-                'Mike Mikey',
-                'Tom Tomson',
-            ];
             $images = [
                 'asteroid.jpeg',
                 'lightspeed.png',
@@ -23,11 +19,12 @@ class ArticleFixtures extends BaseFixtures
             ];
             $randNum = rand(100, 999);
             $date = new \DateTime('now');
-            $article->setTitle(sprintf("Why Asteroids Taste Bacon %s", $randNum))
+            $article->setTitle($this->faker->country)
                 ->setSlug(sprintf("why-asteroids-taste-bacon-%s", $count))
-                ->setAuthor($authors[rand(0, 1)])
+                ->setAuthor($this->faker->name)
                 ->setImageFilename($images[rand(0, 4)])
-                ->setPublishedAt($date)
+                ->setPublishedAt($this->faker->dateTimeBetween('-50days', '-1days'))
+                ->setHeartCount($this->faker->numberBetween(0,100))
                 ->setContent(<<<EOF
 Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
 Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
