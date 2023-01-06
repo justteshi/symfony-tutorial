@@ -18,6 +18,7 @@ class ArticleAdminController extends AbstractController
     public function new(EntityManagerInterface $em)
     {
         $randNum = rand(100,999);
+        $date = new \DateTime('now');
         $article = new Article();
         $article->setTitle(sprintf("Why Asteroids Taste Bacon %s", $randNum))
             ->setSlug( sprintf("why-asteroids-taste-bacon-%s", $randNum))
@@ -37,7 +38,8 @@ and more recently with desktop publishing software like Aldus PageMaker includin
 It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 EOF
-        );
+        )
+            ->setPublishedAt($date);
         $em->persist($article);
         $em->flush();
 //        return new Response('Created New Article');

@@ -36,4 +36,5 @@ class AppExtension extends AbstractExtension
     {
         return $this->helper->parse($value);
     }
+
 }
