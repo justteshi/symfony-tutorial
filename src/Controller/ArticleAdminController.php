@@ -69,4 +69,18 @@ EOF
         return new Response('All articles deleted !');
     }
 
+    /**
+     * @Route("/admin/article/delete/{slug}")
+     */
+    public function deleteOne($slug, EntityManagerInterface $em)
+    {
+        $repository = $em->getRepository(Article::class);
+        $article = $repository->findOneBy(['slug' => $slug]);
+
+        $em->remove($article);
+        $em->flush();
+
+        return new Response(sprintf('Article %s DELETED !', $article->getSlug() ));
+    }
+
 }
