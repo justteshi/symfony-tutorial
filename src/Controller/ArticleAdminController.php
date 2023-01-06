@@ -17,11 +17,24 @@ class ArticleAdminController extends AbstractController
      */
     public function new(EntityManagerInterface $em)
     {
+        $authors = [
+            'Mike Mikey',
+            'Tom Tomson',
+        ];
+        $images = [
+            'asteroid.jpeg',
+            'lightspeed.png',
+            'mercury.jpeg',
+            'meteor-shower.jpg',
+            'space-nav.jpg'
+        ];
         $randNum = rand(100,999);
         $date = new \DateTime('now');
         $article = new Article();
         $article->setTitle(sprintf("Why Asteroids Taste Bacon %s", $randNum))
             ->setSlug( sprintf("why-asteroids-taste-bacon-%s", $randNum))
+            ->setAuthor($authors[rand(0,1)])
+            ->setImageFilename($images[rand(0,4)])
             ->setContent(<<<EOF
 Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
 Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
