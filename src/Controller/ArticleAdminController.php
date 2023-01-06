@@ -17,9 +17,10 @@ class ArticleAdminController extends AbstractController
      */
     public function new(EntityManagerInterface $em)
     {
+        $randNum = rand(100,999);
         $article = new Article();
-        $article->setTitle("Why Asteroids Taste Bacon")
-            ->setSlug('why-asteroids-taste-bacon-'.rand(100,999))
+        $article->setTitle(sprintf("Why Asteroids Taste Bacon %s", $randNum))
+            ->setSlug( sprintf("why-asteroids-taste-bacon-%s", $randNum))
             ->setContent(<<<EOF
 Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
 Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
@@ -49,6 +50,21 @@ EOF
     public function all(ArticleRepository $articleRepo) {
         $articles = $articleRepo->findall();
         dump($articles);die;
+    }
+
+    /**
+     * @Route("/admin/article/delete-all")
+     */
+    public function deleteAll(EntityManagerInterface $em)
+    {
+        $repository = $em->getRepository(Article::class);
+        $articles = $repository->findAll();
+
+        foreach ($articles as $article) {
+            $em->remove($article);
+            $em->flush();
+        }
+        return new Response('All articles deleted !');
     }
 
 }

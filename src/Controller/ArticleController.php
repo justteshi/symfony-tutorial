@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use App\Service\MarkdownHelper;
+use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use App\Service\SlackClient;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,15 +24,18 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(ArticleRepository $articleRepo)
     {
-        return $this->render('article/home.html.twig');
+        $articles = $articleRepo->findAll();
+        return $this->render('article/home.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     /**
      * @Route("/news/{slug}", name="article_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper, SlackClient $slack)
+    public function show($slug, SlackClient $slack, EntityManagerInterface $em)
     {
         if($slug == 'slack') {
             $slack->sendMessage(
@@ -39,25 +44,13 @@ class ArticleController extends AbstractController
             );
         }
 
+        $repository = $em->getRepository(Article::class);
+        $article = $repository->findOneBy(['slug' => $slug]);
 
-        $articleText = <<<EOF
-Lorem Ipsum is **simply dummy** text of the printing and typesetting industry. 
-Lorem Ipsum has been the [industry's standard dummy](https://google.com/) text ever since the 1500s,
-when an unknown **printer** **took** a galley of type and scrambled it to make a type specimen book.
- 
-It has survived not only five centuries, but also the leap into electronic typesetting,
-remaining essentially unchanged.
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        if (!$article) {
+            throw $this->createNotFoundException(sprintf('NO articles for slug %s', $slug));
+        }
 
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-EOF;
-
-        $articleText = $markdownHelper->parse($articleText);
 
         $comments = [
             'Loren text etexteasd nawnjqwd',
@@ -68,7 +61,7 @@ EOF;
         return $this->render('article/show.html.twig',[
             'text' => ucwords(str_replace('-',' ', $slug)),
             'comments' => $comments,
-            'articleText' => $articleText,
+            'article' => $article,
             'slug' => $slug
         ]);
     }
