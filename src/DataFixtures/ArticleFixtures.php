@@ -20,7 +20,6 @@ class ArticleFixtures extends BaseFixtures
             $randNum = rand(100, 999);
             $date = new \DateTime('now');
             $article->setTitle($this->faker->country)
-                ->setSlug(sprintf("why-asteroids-taste-bacon-%s", $count))
                 ->setAuthor($this->faker->name)
                 ->setImageFilename($images[rand(0, 4)])
                 ->setPublishedAt($this->faker->dateTimeBetween('-50days', '-1days'))
