@@ -59,7 +59,6 @@ EOF
             $comment3->setArticle($article);
             $manager->persist($comment3);
 
-
         });
         $manager->flush();
     }
