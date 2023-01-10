@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
 use App\Service\SlackClient;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -44,11 +45,7 @@ class ArticleController extends AbstractController
             );
         }
 
-        $comments = $article->getComments();
-        dump($article);die;
-
         return $this->render('article/show.html.twig',[
-            'comments' => $comments,
             'article' => $article,
         ]);
     }
