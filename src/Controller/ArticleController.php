@@ -44,11 +44,8 @@ class ArticleController extends AbstractController
             );
         }
 
-        $comments = [
-            'Loren text etexteasd nawnjqwd',
-            'LOrem Ipsum atext awd nqwajksjh he',
-            'Ipsume text teshahhj ejkq asfjr fksmsj'
-        ];
+        $comments = $article->getComments();
+        dump($article);die;
 
         return $this->render('article/show.html.twig',[
             'comments' => $comments,

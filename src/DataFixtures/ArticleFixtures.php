@@ -3,13 +3,14 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use Doctrine\Persistence\ObjectManager;
 
 class ArticleFixtures extends BaseFixtures
 {
     protected function loadData(ObjectManager $manager): void
     {
-        $this->createMany(Article::class, 10, function (Article $article, $count) {
+        $this->createMany(Article::class, 10, function (Article $article, $count) use ($manager) {
             $images = [
                 'asteroid.jpeg',
                 'lightspeed.png',
@@ -17,8 +18,7 @@ class ArticleFixtures extends BaseFixtures
                 'meteor-shower.jpg',
                 'space-nav.jpg'
             ];
-            $randNum = rand(100, 999);
-            $date = new \DateTime('now');
+
             $article->setTitle($this->faker->country)
                 ->setAuthor($this->faker->name)
                 ->setImageFilename($images[rand(0, 4)])
@@ -41,6 +41,25 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 EOF
                 );
+            $comment1 = new Comment();
+            $comment1->setAuthor($this->faker->name);
+            $comment1->setContent('It was popularised in the 1960s with the release of Letraset sheets ');
+            $comment1->setArticle($article);
+            $manager->persist($comment1);
+
+            $comment2 = new Comment();
+            $comment2->setAuthor($this->faker->name);
+            $comment2->setContent('software like Aldus PageMaker');
+            $comment2->setArticle($article);
+            $manager->persist($comment2);
+
+            $comment3 = new Comment();
+            $comment3->setAuthor($this->faker->name);
+            $comment3->setContent('Aldus PageMaker including versions of Lorem Ipsum.');
+            $comment3->setArticle($article);
+            $manager->persist($comment3);
+
+
         });
         $manager->flush();
     }
