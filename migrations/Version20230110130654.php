@@ -20,7 +20,7 @@ final class Version20230110130654 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE comment ADD COLUMN is_deleted BOOLEAN NOT NULL');
+        $this->addSql('ALTER TABLE comment ADD COLUMN is_deleted BOOLEAN NOT NULL ');
     }
 
     public function down(Schema $schema): void
