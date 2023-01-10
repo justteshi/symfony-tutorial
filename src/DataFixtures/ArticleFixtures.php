@@ -19,8 +19,8 @@ class ArticleFixtures extends BaseFixtures
                 'space-nav.jpg'
             ];
 
-            $article->setTitle($this->faker->country)
-                ->setAuthor($this->faker->name)
+            $article->setTitle($this->faker->country())
+                ->setAuthor($this->faker->name())
                 ->setImageFilename($images[rand(0, 4)])
                 ->setPublishedAt($this->faker->dateTimeBetween('-50days', '-1days'))
                 ->setHeartCount($this->faker->numberBetween(0,100))
@@ -41,24 +41,6 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 EOF
                 );
-            $comment1 = new Comment();
-            $comment1->setAuthor($this->faker->name);
-            $comment1->setContent('It was popularised in the 1960s with the release of Letraset sheets ');
-            $comment1->setArticle($article);
-            $manager->persist($comment1);
-
-            $comment2 = new Comment();
-            $comment2->setAuthor($this->faker->name);
-            $comment2->setContent('software like Aldus PageMaker');
-            $comment2->setArticle($article);
-            $manager->persist($comment2);
-
-            $comment3 = new Comment();
-            $comment3->setAuthor($this->faker->name);
-            $comment3->setContent('Aldus PageMaker including versions of Lorem Ipsum.');
-            $comment3->setArticle($article);
-            $manager->persist($comment3);
-
         });
         $manager->flush();
     }
