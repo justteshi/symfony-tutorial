@@ -203,7 +203,10 @@ html {height:100%}
 .share-icons i {
     font-size: 1.5em;
 }
+.comment-wrapper {
+    margin-bottom: 1rem;
 
+}
 .comment-container {
     width: 90%;
 }
@@ -249,5 +252,6 @@ html {height:100%}
     position: absolute;
     top: 5px;
     right: 5px;
+    z-index: 1;
 }
 

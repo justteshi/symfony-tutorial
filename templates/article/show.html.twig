@@ -39,7 +39,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3><i class="pr-3 fa fa-comment"></i>{{ article.comments|length }} Comments</h3>
+                            <h3><i class="pr-3 fa fa-comment"></i>{{ article.nonDeletedComments|length }} Comments</h3>
                             <hr>
 
                             <div class="row mb-5">
@@ -54,16 +54,21 @@
                                     </div>
                                 </div>
                             </div>
-                            {% for comment in article.comments %}
-                                <div class="row">
+                            {% for comment in article.nonDeletedComments %}
+                                <div class="row comment-wrapper">
                                     <div class="col-sm-12">
                                         <img class="comment-img rounded-circle" src="{{ asset('images/alien-profile.png') }}">
                                         <div class="comment-container d-inline-block pl-3 align-top">
                                             <span class="commenter-name">{{ comment.author }}</span>
                                             <small>{{ comment.createdAt|ago }}</small>
-                                            <br>
-                                            <span class="comment"> {{ comment.content }}</span>
-                                            <p><a href="#">Reply</a></p>
+                                            {% if comment.isDeleted %}
+                                                <span><i class="fa fa-close"></i> deleted comment</span>
+                                            {% else %}
+                                                <br>
+                                                <span class="comment"> {{ comment.content }}</span>
+                                                <p><a href="#">Reply</a></p>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </div>
