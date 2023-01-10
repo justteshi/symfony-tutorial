@@ -204,6 +204,9 @@ html {height:100%}
     font-size: 1.5em;
 }
 
+.comment-container {
+    width: 90%;
+}
 .comment-img {
     width: 50px;
     height: auto;

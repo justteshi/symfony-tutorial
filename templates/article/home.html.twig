@@ -26,9 +26,13 @@
                                     <span>{{ article.title }}</span>
                                     <br>
                                     <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/alien-profile.png') }}"> {{ article.author }} </span>
-                                    <span class="pl-5 article-details float-right">
+                                    <span class="pl-5 article-details ">
                                         {{ article.publishedAt ? article.publishedAt|ago : '' }}
                                     </span>
+                                    <small class="pl-5">
+                                        <i class="fa fa-comment-o" ></i>
+                                        {{ article.comments|length }}
+                                    </small>
                                 </div>
                             </a>
                         </div>
