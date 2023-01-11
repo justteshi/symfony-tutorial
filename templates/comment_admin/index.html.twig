@@ -8,6 +8,36 @@
     <div class="row">
         <div class="col-sm-12">
             <h1>Manage comments</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Author</th>
+                    <th>Comment</th>
+                    <th>Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('article_show', {slug: comment.article.slug}) }}">
+                                {{ comment.article.title }}
+                            </a>
+                        </td>
+                        <td >
+                            {{ comment.author }}
+                        </td>
+                        <td style="width: 40%">
+                            {{ comment.content|u.truncate(50) }}...
+                        </td>
+                        <td>
+                            {{ comment.createdAt|ago }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
