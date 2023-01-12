@@ -19,7 +19,7 @@ class ArticleFixtures extends BaseFixtures
                 'space-nav.jpg'
             ];
 
-            $article->setTitle($this->faker->country())
+            $article->setTitle($this->faker->sentences(1, true))
                 ->setAuthor($this->faker->name())
                 ->setImageFilename($images[rand(0, 4)])
                 ->setPublishedAt($this->faker->dateTimeBetween('-50days', '-1days'))
