@@ -40,7 +40,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-            "LoremIpsum\\LoremIpsumBundle\\": "lib/LoremIpsumBundle/src"
+            "KnpU\\LoremIpsumBundle\\": "lib/LoremIpsumBundle/src"
         }
     },
     "autoload-dev": {

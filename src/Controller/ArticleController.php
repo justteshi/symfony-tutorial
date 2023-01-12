@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use LoremIpsum\LoremIpsumBundle\KnpUIpsum;
+use KnpU\LoremIpsumBundle\KnpUIpsum;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
@@ -17,10 +17,15 @@ class ArticleController extends AbstractController
 {
 
     private $isDebug;
+    /**
+     * @var KnpUIpsum
+     */
+    private $knpUIpsum;
 
-    public function __construct(bool $isDebug)
+    public function __construct(bool $isDebug, KnpUIpsum $knpUIpsum)
     {
         $this->isDebug = $isDebug;
+        $this->knpUIpsum = $knpUIpsum;
     }
 
     /**
