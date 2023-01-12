@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use LoremIpsum\LoremIpsumBundle\KnpUIpsum;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
