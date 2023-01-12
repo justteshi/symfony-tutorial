@@ -12,7 +12,7 @@ class TagFixture extends BaseFixtures
         // $product = new Product();
         // $manager->persist($product);
         $this->createMany(Tag::class, 10, function(Tag $tag) {
-            $tag->setName($this->faker->realText(20));
+            $tag->setName($this->faker->word());
         });
         $manager->flush();
     }

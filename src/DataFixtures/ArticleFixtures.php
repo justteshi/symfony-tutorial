@@ -3,10 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use App\Entity\Comment;
+use App\Entity\Tag;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ArticleFixtures extends BaseFixtures
+class ArticleFixtures extends BaseFixtures implements DependentFixtureInterface
 {
     protected function loadData(ObjectManager $manager): void
     {
@@ -41,7 +42,23 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 EOF
                 );
+
+            /** @var Tag[] $tags */
+            $tags = $this->getRandomReferences(
+                Tag::class,
+                $this->faker->numberBetween(0,5)
+            );
+
+            foreach ($tags as $tag) {
+                $article->addTag($tag);
+            }
         });
         $manager->flush();
+    }
+
+    public function getDependencies(){
+        return [
+            TagFixture::class,
+        ];
     }
 }

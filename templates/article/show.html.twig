@@ -23,6 +23,12 @@
                     <span class="js-like-article-count">{{ article.heartCount }}</span>
                     <a href="{{ path('like_article', {slug: article.slug}) }}" class="fa fa-heart-o like-article js-like-article"></a>
                 </span>
+
+                <span class="pl-2 article-details">
+                    {% for tag in article.tags %}
+                        <span class="badge badge-secondary">{{ tag.name }}</span>
+                    {% endfor %}
+                </span>
             </div>
         </div>
     </div>
