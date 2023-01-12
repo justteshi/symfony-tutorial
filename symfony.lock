@@ -55,6 +55,9 @@
     "knplabs/knp-markdown-bundle": {
         "version": "1.10.0"
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.9.0"
+    },
     "knplabs/knp-time-bundle": {
         "version": "v1.15.0"
     },
