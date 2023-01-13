@@ -22,11 +22,13 @@ class ArticleAdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/all")
+     * @Route("/admin/article")
      */
-    public function all(ArticleRepository $articleRepo) {
+    public function allArticles(ArticleRepository $articleRepo) {
         $articles = $articleRepo->findall();
-        dump($articles);die;
+        return $this->render('article_admin/index.html.twig', [
+            'articles'=> $articles
+        ]);
     }
 
     /**

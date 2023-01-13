@@ -1,0 +1,51 @@
+{% extends 'content_base.html.twig' %}
+
+{% block title %}Manage Articles!{% endblock %}
+
+{% block content_class %}{{ parent() }} show-article-container-border-green{% endblock %}
+
+{% block content_body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Manage Articles</h1>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Author</th>
+                    <th>Article's Content</th>
+                    <th>Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('article_show', {slug: article.slug}) }}">
+                                {{ article.title }}
+                            </a>
+                        </td>
+                        <td >
+                            {{ article.author }}
+                        </td>
+                        <td style="width: 40%">
+                            {{ article.content|u.truncate(50) }}...
+                        </td>
+                        <td>
+                            {{ article.createdAt|ago }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="txt-center">
+                            No Article found !
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
