@@ -11,13 +11,7 @@ class UserFixture extends BaseFixtures
     {
         // $product = new Product();
         // $manager->persist($product);
-//        $this->createMany(10, 'main_users', function(User $user, $i) {
-//            $user = new User();
-//            $user->setEmail(sprintf('spacebar&d@example.com', $i));
-//            $user->setFirstName($this->faker->firstName);
-//
-//            return $user;
-//        });
+
         $manager->flush();
     }
 }
