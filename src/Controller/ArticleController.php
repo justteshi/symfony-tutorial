@@ -5,7 +5,6 @@ namespace App\Controller;
 use KnpU\LoremIpsumBundle\KnpUIpsum;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
-use App\Repository\CommentRepository;
 use App\Service\SlackClient;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
