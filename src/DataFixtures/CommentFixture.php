@@ -7,7 +7,7 @@ use App\Entity\Comment;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class CommentFixture extends BaseFixture implements DependentFixtureInterface
+class CommentFixture extends BaseFixtures implements DependentFixtureInterface
 {
     protected function loadData(ObjectManager $manager)
     {
