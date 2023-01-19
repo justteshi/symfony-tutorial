@@ -16,7 +16,7 @@
             height: 100%;
             object-fit: contain;
         }
-        h1 {
+        h1, p {
             text-align: center;
         }
     </style>
@@ -25,5 +25,6 @@
         <img src="{{ asset('images/astronaut-profile.png') }}">
     </div>
     <h1>Hello, {{ app.user.firstName }}</h1>
+    <p>Email: {{ app.user.email }}</p>
 </div>
 {% endblock %}
