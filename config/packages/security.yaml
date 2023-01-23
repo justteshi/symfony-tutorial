@@ -12,7 +12,7 @@ security:
                 property: email
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_ADMIN_ARTICLE, ROLE_ADMIN_COMMENT]
+        ROLE_ADMIN: [ROLE_ADMIN_ARTICLE, ROLE_ADMIN_COMMENT, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:
         dev:
@@ -27,6 +27,8 @@ security:
 
             logout:
                 path: app_logout
+
+            switch_user: true
 
             remember_me:
                 secret: '%kernel.secret%'
