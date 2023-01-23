@@ -27,7 +27,6 @@ class AccountController extends BaseController
     public function accountApi()
     {
         $user = $this->getUser();
-
         return $this->json($user, 200, [], [
             'groups' => ['main']
         ]);
