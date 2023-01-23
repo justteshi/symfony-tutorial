@@ -10,22 +10,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @IsGranted("ROLE_ADMIN_ARTICLE")
- */
 class ArticleAdminController extends AbstractController
 {
     /**
      * @Route ("/admin/article/new", name="admin_article_new")
+     * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     public function new(Article $article)
     {
-
         return $this->redirect(sprintf('/news/%s',$article->getSlug()));
     }
 
     /**
+     * @Route ("/admin/article/{id}/edit")
+     */
+    public function edit(Article $article)
+    {
+        if ($article->getAuthor() != $this->getUser() && !$this->isGranted('ROLE_ADMIN_ARTICLE')) {
+            throw $this->createAccessDeniedException('No access !');
+        }
+        dd($article);
+    }
+
+    /**
      * @Route("/admin/article")
+     * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     public function allArticles(ArticleRepository $articleRepo) {
         $articles = $articleRepo->findall();
@@ -36,6 +45,7 @@ class ArticleAdminController extends AbstractController
 
     /**
      * @Route("/admin/article/delete-all")
+     * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     public function deleteAll(EntityManagerInterface $em)
     {
@@ -51,6 +61,7 @@ class ArticleAdminController extends AbstractController
 
     /**
      * @Route("/admin/article/delete/{slug}")
+     * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     public function deleteOne($slug, EntityManagerInterface $em)
     {
