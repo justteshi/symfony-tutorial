@@ -34,11 +34,15 @@ class ArticleFormType extends AbstractType
             ->add('author', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => function(User $user) {
-                    return sprintf('%s - %s', $user->getEmail(), $user->getFirstName());
+                    return sprintf('%s - %s',
+                        $user->getEmail(),
+                        $user->getFirstName()
+                    );
                 },
                 'placeholder' => 'Choice author',
                 'choices' => $this->userRepository
-                ->findAllEmailAlphabetical()
+                ->findAllEmailAlphabetical(),
+                'invalid_message' => 'Symfony is too smart for your hacking'
             ])
         ;
     }
