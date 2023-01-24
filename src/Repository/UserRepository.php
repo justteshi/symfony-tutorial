@@ -47,6 +47,17 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return User[]
+     */
+    public function findAllEmailAlphabetical()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.email', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
