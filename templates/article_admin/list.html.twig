@@ -14,7 +14,7 @@
                 <tr>
                     <th>Article</th>
                     <th>Author</th>
-                    <th>Article's Content</th>
+                    <th>Published ?</th>
                     <th>Created</th>
                 </tr>
                 </thead>
@@ -30,8 +30,8 @@
                         <td >
                             {{ article.author }}
                         </td>
-                        <td style="width: 40%">
-                            {{ article.content|u.truncate(50) }}...
+                        <td >
+                            <span class="fa fa-{{ article.isPublished ? 'check' : 'times' }}"></span>
                         </td>
                         <td>
                             {{ article.createdAt|ago }}
