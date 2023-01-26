@@ -8,7 +8,13 @@
     <h1>Create new article</h1>
 
     {{ form_start(articleForm) }}
-        {{ form_widget(articleForm) }}
+{#        {{ form_widget(articleForm) }}#}
+
+    {{ form_row(articleForm.title) }}
+    {{ form_row(articleForm.content) }}
+    {{ form_row(articleForm.publishedAt) }}
+    {{ form_row(articleForm.author) }}
+
         <button type="submit" class="btn btn-primary">Create</button>
     {{ form_end(articleForm) }}
 
