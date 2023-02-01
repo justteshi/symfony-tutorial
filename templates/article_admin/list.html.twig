@@ -20,6 +20,7 @@
                     <th>Author</th>
                     <th>Published ?</th>
                     <th>Created</th>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,13 @@
                         </td>
                         <td>
                             {{ article.createdAt|ago }}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_article_edit', {
+                                id: article.id
+                            }) }}">
+                                <span class="fa fa-pencil" ></span>
+                            </a>
                         </td>
                     </tr>
                 {% else %}
