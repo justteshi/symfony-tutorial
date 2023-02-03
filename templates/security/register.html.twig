@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme registrationForm _self %}
 
 {% block title %}Register{% endblock %}
 
@@ -6,6 +7,18 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
+
+{% block form_row %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    {{- form_label(form) -}}
+    {{- form_errors(form) -}}
+    {{- form_widget(form, widget_attr) -}}
+    {{- form_help(form) -}}
+{% endblock %}
+
 
 {% block body %}
     <div class="container">
