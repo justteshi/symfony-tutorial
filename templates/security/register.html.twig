@@ -49,7 +49,15 @@
         }) }}
             <h1 class="h3 mb-3 font-weight-normal">Register</h1>
 
-            {{ form_widget(registrationForm) }}
+        {{ form_row(registrationForm.email, {
+            attr: {placeholder: 'Email'}
+        }) }}
+        {{ form_row(registrationForm.plainPassword, {
+            attr: {placeholder: 'Password'}
+        }) }}
+        {{ form_row(registrationForm.agreedTerms) }}
+
+
             <button class="btn btn-lg btn-primary btn-block" type="submit">
                 Sign up
             </button>
