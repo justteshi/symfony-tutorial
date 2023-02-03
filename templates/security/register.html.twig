@@ -22,6 +22,15 @@
 {% endblock %}
 
 
+{% block _user_registration_form_agreedTerms_row %}
+    <div class="checkbox mb-3">
+        {{ form_errors(form) }}
+        <label>
+            <input type="checkbox" name="{{ full_name }}"> I agree to the Terms
+        </label>
+    </div>
+{% endblock %}
+
 {% block body %}
     <div class="container">
 {#        <form method="post" class="form-signin">#}
